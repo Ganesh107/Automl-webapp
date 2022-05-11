@@ -10,14 +10,10 @@ def app():
     if uploaded_file is not None:
         data = pd.read_csv(uploaded_file)
         cols = data.columns.tolist()
-        plot_types = st.selectbox("Select type of plot",["Area chart","Bar chart","Line chart","hist","box","kde"])
+        plot_types = st.selectbox("Select type of plot",["Area chart","hist","box","kde"])
         selected_cols = st.multiselect("Select columns to plot",cols)
 
         #visualization plots
-        if st.checkbox("Count plot"):
-            st.text("Value counts by Target class")
-             
-
         if st.checkbox("Corrrelation Plot"):
             st.write(sns.heatmap(data.corr(),annot=True))
             st.pyplot()
@@ -25,10 +21,9 @@ def app():
         if st.checkbox("Pie plot"):
             target = st.text_input("Enter Target class")
             if target in data.columns:
-                if st.button("Create plot"):
-                    st.success("Generating a Pie plot")
-                    st.write(data[target].value_counts().plot.pie(autopct="%1.1f%%"))
-                    st.pyplot()
+                st.success("Generating a Pie plot")
+                st.write(data[target].value_counts().plot.pie(autopct="%1.1f%%"))
+                st.pyplot()
             else:
                 st.warning("Please enter correct column name")
                 st.error("Invalid column name entered")
@@ -40,14 +35,6 @@ def app():
         if plot_types == 'Area chart':
             cols_to_plot = data[selected_cols]
             st.area_chart(cols_to_plot)
-
-        elif plot_types == 'Bar chart':
-            cols_to_plot = data[selected_cols]
-            st.bar_chart(selected_cols)
-
-        elif plot_types == 'Line chart':
-            cols_to_plot = data[selected_cols]
-            st.line_chart(selected_cols)
 
         elif plot_types:
             st.set_option('deprecation.showPyplotGlobalUse', False)
