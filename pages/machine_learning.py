@@ -2,6 +2,7 @@ import numpy
 import streamlit as st
 import pandas as pd
 import numpy as np
+import autosklearn.classification as clf
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
@@ -18,7 +19,7 @@ def app():
         data = pd.read_csv(uploaded_file)
     
         #Model selection
-        model_name = st.sidebar.selectbox("Select Classifier",("KNN","SVM","Random Forest"))
+        model_name = st.sidebar.selectbox("Select Classifier",("Auto-sklearn","KNN","SVM","Random Forest"))
         target = st.text_input("Enter target class")
         if target not in data.columns:
             st.warning("Enter Correct Column name")
@@ -42,7 +43,12 @@ def app():
 #function to add parameters
 def add_parameters(clf_name):
     params = dict()
-    if clf_name == "KNN":
+    if clf_name == "Auto-sklearn":
+        time = st.sidebar.slider("time_left_for_this_task",30,500)
+        run_time = st.sidebar.slider("per_run_time_limit",1,100)
+        params['time_left_for_this_task'] = time
+        params['per_run_time_limit'] = run_time
+    elif clf_name == "KNN":
         k = st.sidebar.slider("K",1,10)
         params['k'] = k   
     elif clf_name == "SVM":
@@ -59,7 +65,10 @@ def add_parameters(clf_name):
 
 #function to build various ml models
 def build_model(model_name,params):
-    if model_name == "KNN":
+    if model_name == "Auto-sklearn":
+        model = clf.AutoSklearnClassifier(time_left_for_this_task=params['time_left_for_this_task'],
+        per_run_time_limit=params['per_run_time_limit'])
+    elif model_name == "KNN":
         model = KNeighborsClassifier(n_neighbors=params['k'])
     elif model_name == "SVM":
         model = SVC(C=params['c'],gamma=params['gamma'])
