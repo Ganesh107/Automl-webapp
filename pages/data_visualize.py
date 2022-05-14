@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from autoviz.AutoViz_Class import AutoViz_Class
 
 def app():
     st.title("Visualization")
@@ -9,10 +10,14 @@ def app():
     uploaded_file = st.file_uploader("Upload a CSV file ")
     if uploaded_file is not None:
         data = pd.read_csv(uploaded_file)
-        cols = data.columns.tolist()
-        plot_types = st.selectbox("Select type of plot",["Area chart","hist","box","kde"])
-        selected_cols = st.multiselect("Select columns to plot",cols)
-
+        
+        #autoviz
+        if st.checkbox("Autoviz"):
+            AV = AutoViz_Class()
+            df = AV.AutoViz('/home/user/Desktop/autoML-webapp/data/diabetes.csv')
+            st.write(df)
+            st.pyplot()
+            
         #visualization plots
         if st.checkbox("Corrrelation Plot"):
             st.write(sns.heatmap(data.corr(),annot=True))
@@ -30,7 +35,12 @@ def app():
 
         #if st.button("Create Plot"):
         #   st.success("Creating {} for {}".format(plot_types,selected_cols))
-        
+      
+      
+        cols = data.columns.tolist()
+        plot_types = st.selectbox("Select type of plot",["Area chart","hist","box","kde"])
+        selected_cols = st.multiselect("Select columns to plot",cols)
+        st.set_option('deprecation.showPyplotGlobalUse', False)
         #Visualization - charts
         if plot_types == 'Area chart':
             cols_to_plot = data[selected_cols]
