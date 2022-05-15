@@ -14,7 +14,7 @@ def app():
         #autoviz
         if st.checkbox("Autoviz"):
             AV = AutoViz_Class()
-            df = AV.AutoViz('/home/user/Desktop/autoML-webapp/data/diabetes.csv')
+            df = AV.AutoViz(filename='',dfte=data)
             st.write(df)
             st.pyplot()
             
@@ -32,11 +32,8 @@ def app():
             else:
                 st.warning("Please enter correct column name")
                 st.error("Invalid column name entered")
+      
 
-        #if st.button("Create Plot"):
-        #   st.success("Creating {} for {}".format(plot_types,selected_cols))
-      
-      
         cols = data.columns.tolist()
         plot_types = st.selectbox("Select type of plot",["Area chart","hist","box","kde"])
         selected_cols = st.multiselect("Select columns to plot",cols)

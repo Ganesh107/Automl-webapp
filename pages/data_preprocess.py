@@ -19,11 +19,6 @@ def app():
         if st.button("Missing Values"):
             st.write(data.isnull().sum())
         
-        #fill null values
-        if st.button("Fill Missing values"):
-            fill_nullvalues(data)
-            st.write(data.isnull().sum())
-        
         #standardization
         st.subheader("Standardize data")
         if st.checkbox("Use Standard scaler"):
@@ -53,11 +48,3 @@ def app():
             else:
                 st.warning("Invalid input")
                 st.error("Please enter the correct column name")
-
-#function to fill null values
-def fill_nullvalues(df):
-    for cols in df.columns:
-        for i,value in enumerate(df[cols].values):
-            if np.isnan(value):
-                df[cols][i] = df[cols].mean()
-    return(df)
