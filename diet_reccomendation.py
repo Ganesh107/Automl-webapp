@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import random
 
-data = pd.read_csv('/home/user/Desktop/autoML-webapp/data/input.csv')
+data = pd.read_csv('data/input.csv')
 Breakfastdata=data['Breakfast'] 
 BreakfastdataNumpy=Breakfastdata.to_numpy()
 
@@ -26,7 +26,9 @@ for i in range(len(Breakfastdata)):
     if DinnerdataNumpy[i]==1:
         Dinnerfoodseparated.append(Food_itemsdata[i])
 
-
+print(len(breakfastfoodseparated))
+print(len(Lunchfoodseparated))
+print(len(Dinnerfoodseparated))
 #creating food_dataframes along with calories
 bfast = pd.DataFrame(breakfastfoodseparated)
 bfast['Calories'] = data['Calories']

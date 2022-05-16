@@ -4,7 +4,7 @@ import numpy as np
 import random
 import pickle
 
-catboost_model = pickle.load(open('/home/user/Desktop/autoML-webapp/catboost_model/catboost.sav','rb'))
+catboost_model = pickle.load(open('catboost_model/catboost.sav','rb'))
 def app():
     st.subheader("DIABETES PREDICTOR")
     pregnancies = st.text_input("Number of Pregnancies")
@@ -42,7 +42,7 @@ def app():
                 st.write('Required Calories = ',req_calories)
 
                 if(st.checkbox("Check Diet")):
-                    data = pd.read_csv('/home/user/Desktop/autoML-webapp/data/input.csv')
+                    data = pd.read_csv('data/input.csv')
                     Breakfastdata=data['Breakfast'] 
                     BreakfastdataNumpy=Breakfastdata.to_numpy()
                             
@@ -82,8 +82,8 @@ def app():
                     d_diet=[]
                     #breakfast
                     i = random.randint(0,41)
-                    j = random.randint(0,44)
-                    z = random.randint(0,60)
+                    j = random.randint(0,41)
+                    z = random.randint(0,57)
                     while current_cal <= req_calories:
                         b_diet.append(bfast[0][i])
                         l_diet.append(lunch[0][j])

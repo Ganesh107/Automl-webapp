@@ -19,6 +19,14 @@ def app():
         if st.button("Missing Values"):
             st.write(data.isnull().sum())
         
+        #fill missing values
+        if st.button("Fill Missing values"):
+            if(data.isnull().sum() is True):
+                data.fillna(data.mean(),inplace=True)
+                st.write(data.isnull().sum())
+            else:
+                st.warning("Dataset does not contain null values")
+
         #standardization
         st.subheader("Standardize data")
         if st.checkbox("Use Standard scaler"):
