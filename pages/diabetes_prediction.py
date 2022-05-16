@@ -25,7 +25,7 @@ def app():
             weight = st.number_input("Enter weight(in kg)")
             height = st.number_input("Enter height(in cm)")
             age = st.number_input("Enter age")
-            bmr = (10*weight)+(6.25*height)-(5*age)-161
+            bmr = (10*weight)+(6.25*height)-(5*age)-161 #Harris Benedict equation
 
             if st.checkbox("Check BMR and Required calories"):
                 st.write("BMR = ",bmr)    
@@ -80,7 +80,7 @@ def app():
                     b_diet=[]
                     l_diet=[]
                     d_diet=[]
-                    #breakfast
+
                     i = random.randint(0,41)
                     j = random.randint(0,41)
                     z = random.randint(0,57)
