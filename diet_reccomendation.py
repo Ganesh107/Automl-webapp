@@ -16,7 +16,7 @@ Food_itemsdata=data['Food_items']
 breakfastfoodseparated=[]
 Lunchfoodseparated=[]
 Dinnerfoodseparated=[]
-    
+
 #seperating different foods 
 for i in range(len(Breakfastdata)):
     if BreakfastdataNumpy[i]==1:
@@ -25,7 +25,6 @@ for i in range(len(Breakfastdata)):
         Lunchfoodseparated.append(Food_itemsdata[i])
     if DinnerdataNumpy[i]==1:
         Dinnerfoodseparated.append(Food_itemsdata[i])
-
 
 #creating food_dataframes along with calories
 bfast = pd.DataFrame(breakfastfoodseparated)
